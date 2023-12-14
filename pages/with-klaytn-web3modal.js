@@ -4,6 +4,7 @@ import { KaikasWeb3Provider } from "@klaytn/kaikas-web3-provider"
 import { useState, useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast"
 import { Button } from "@/components/ui/button"
+// import Caver from "caver-js";
 
 export default function WithKlaytnWeb3Modal() {
   const DEFAULT_ADDRESS_MESSAGE = "Connect with Wallet :)";
@@ -22,7 +23,12 @@ export default function WithKlaytnWeb3Modal() {
   const providerOptions = {
     kaikas: {
       package: KaikasWeb3Provider
-    }
+    },
+    metamask: {
+      id: 'injected',
+      name: 'MetaMask',
+      type: 'injected',
+    },
   };
   const { toast } = useToast()
 
@@ -280,7 +286,7 @@ export default function WithKlaytnWeb3Modal() {
       className="flex min-h-screen flex-col items-center p-6 md:p-10"
     >
     <div className="flex flex-col max-w-5xl w-full gap-8">
-      <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">Try Fee Delegation with Metamask and Klaytn Web3Modal</h1>
+      <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">Try Fee Delegation with Kaikas and Klaytn Web3Modal</h1>
       <div className="mt-10 flex flex-col gap-4">
         <h2 className="mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">Connect with Metamask with the button below</h2>
         {
