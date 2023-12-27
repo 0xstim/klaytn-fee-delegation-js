@@ -1,7 +1,8 @@
 import Head from 'next/head'
 // import { Inter } from 'next/font/google'
 // import { Button } from "@/components/ui/button"
-import { CodeBlock, atomOneDark } from "react-code-blocks";
+import Link from 'next/link'
+// import { CodeBlock, atomOneDark } from "react-code-blocks";
 
 // const inter = Inter({ subsets: ['latin'] })
 
@@ -114,68 +115,16 @@ sendFeeDelegateTx();`
             <li>Caver-js is the library used for signing fee delegated transactions</li>
             <li>API reference is below and will be updated continuously</li>
           </ul>
-          <h2 className={h2}>API Reference</h2>
-          <p className="leading-7 [&:not(:first-child)]:mt-2 mb-4">List of API endpoints</p>
-          <h3 className={h3}><code className={code}>/api/delegate-fee</code></h3>
-          <p className="leading-7 [&:not(:first-child)]:mt-2 mb-4">Anyone can send transaction to this endpoint and get their fee sponsored</p>
-          <h4 className={h4}>Sample request</h4>
-          <CodeBlock
-            text={req}
-            language='json'
-            showLineNumbers={true}
-            startingLineNumber={1}
-            theme={atomOneDark}
-          />
-          <h4 className={h4}>Sample response</h4>
-          <CodeBlock
-            text={res}
-            language='json'
-            showLineNumbers={true}
-            startingLineNumber={1}
-            theme={atomOneDark}
-          />
-          <br />
-          <br />
-          <br />
-          <h3 className={h3}><code className={code}>/api/delegate-fee-from-whitelist</code></h3>
-          <p className="leading-7 [&:not(:first-child)]:mt-2 mb-4">Only address in the whitelist can get the fee sponsored</p>
-          <h4 className={h4}>Sample request</h4>
-          <CodeBlock
-            text={req}
-            language='json'
-            showLineNumbers={true}
-            startingLineNumber={1}
-            theme={atomOneDark}
-          />
-          <h4 className={h4}>Sample response</h4>
-          <CodeBlock
-            text={res}
-            language='json'
-            showLineNumbers={true}
-            startingLineNumber={1}
-            theme={atomOneDark}
-          />
-          <h2 className={h2}>How to use this Fee Delegation Server</h2>
-          <ul className={list}>
-            <li>Deploy the server on Vercel or other hosting providers.</li>
-            {/* <li>Click connect wallet then click send a sample transaction.</li> */}
-            {/* <Button>Connect wallet</Button>
-            <Button>Send a sample transaction</Button> */}
-            <li>Create <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">sender_client.js</code> and insert the code block below
-              <div>
-                <CodeBlock
-                  text={senderClientCodeBlock}
-                  language='javascript'
-                  showLineNumbers={true}
-                  startingLineNumber={1}
-                  theme={atomOneDark}
-                />
-              </div>
-            </li>
-            <li>Run <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">node sender_client.js</code></li>
-            <li>Customize the server to fit your needs</li>
-            <li>Build your own Fee Delegation Server!</li>
-          </ul>
+          <h2 className={h2}>Documentation</h2>
+          <div className='mt-6'>
+            <a href="https://github.com/zxstim/klaytn-fee-delegation-js" target="_blank" rel="noopener noreferrer" className="font-medium text-primary underline underline-offset-4">Github repository</a>
+          </div>
+          <h2 className={h2}>Implementations</h2>
+          <div className='flex flex-col gap-4 mt-6'>
+            <Link href="/with-caverjs" target="_blank" rel="noopener noreferrer" className="font-medium text-primary underline underline-offset-4">Caverjs</Link>
+            <Link href="/with-klaytn-web3modal" target="_blank" rel="noopener noreferrer" className="font-medium text-primary underline underline-offset-4">Web3Modal</Link>
+            <Link href="/with-klaytn-web3modal" target="_blank" rel="noopener noreferrer" className="font-medium text-primary underline underline-offset-4">Klaytn Web3Modal</Link>
+          </div>
         </div>
       </main>
     </>

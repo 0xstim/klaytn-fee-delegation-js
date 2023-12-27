@@ -1,13 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import Caver from 'caver-js';
 
 export default function WithCaverjsAndMetamask() {
-
-  const [provider, setProvider] = useState(null);
-  const [signer, setSigner] = useState(null);
-  const [address, setAddress] = useState(null);
   const [balance, setBalance] = useState(null);
   const [senderAddress, setSenderAddress] = useState(null);
   const [senderPrivateKey, setSenderPrivateKey] = useState(null);
@@ -44,7 +40,7 @@ export default function WithCaverjsAndMetamask() {
       gas: '300000',
       value: caver.utils.toPeb('0.00001', 'KLAY'),
     }, senderPrivateKey)
-    const result = fetch('http://localhost:3000/api/delegate-fee-from-whitelist', {
+    const result = fetch('http://localhost:3000/api/delegate-fee', {
       method: 'POST',
       body: JSON.stringify(transactionData),
       headers: {
@@ -52,7 +48,7 @@ export default function WithCaverjsAndMetamask() {
       }
     }).then(res => res.json())
     .then(json => console.log(json))
-    .finally(json => {setTxResult(json)});
+    .finally(alert("Transaction success!"));
   }
 
   // styles
@@ -83,9 +79,6 @@ export default function WithCaverjsAndMetamask() {
               <p className="leading-7 [&:not(:first-child)]:mt-6">Please sign a transaction to delegate your fee to the contract</p>
               <Input onChange={handleInputReceivingAddress} type="text" placeholder="Receiving address" />
               <Button onClick={sendFeeDelegateTransaction} className="w-fit">Send and delegate transaction</Button>
-            </div>
-            <div className="flex flex-col gap-4 mt-4">
-              {JSON.stringify(txResult)}
             </div>
           </div>
       </div>

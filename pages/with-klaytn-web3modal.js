@@ -13,22 +13,17 @@ export default function WithKlaytnWeb3Modal() {
   const [balance, setBalance] = useState(0);
   const [isFeatureActive, setIsFeatureActive] = useState(false);
   const [web3Instance, setWeb3Instance] = useState();
-  const [deployerOutput, setDeployerOutput] = useState('');
-  const [deployedContract, setDeployedContract] = useState('');
+  // const [deployerOutput, setDeployerOutput] = useState('');
+  // const [deployedContract, setDeployedContract] = useState('');
   const [web3Modal, setWeb3Modal] = useState();
   const targetNetworkId = process.env.CHAINID || "1001";
-  const API_BASEURL = process.env.API_BASEURL || "http://localhost:3001";
-  const keyString = 'keyString';
-  const valueString = 'valueString';
+  // const API_BASEURL = process.env.API_BASEURL || "http://localhost:3001";
+  // const keyString = 'keyString';
+  // const valueString = 'valueString';
   const providerOptions = {
     kaikas: {
       package: KaikasWeb3Provider
-    },
-    metamask: {
-      id: 'injected',
-      name: 'MetaMask',
-      type: 'injected',
-    },
+    }
   };
   const { toast } = useToast()
 
@@ -179,107 +174,6 @@ export default function WithKlaytnWeb3Modal() {
     .then(json => console.log(json));
   }
 
-  const signDeployer = async () => {
-    if(!byteCode) return toast({
-      title: 'Error',
-      description: "Please provide valid byteCode",
-    })
-    if(web3Instance.klay) {
-      let data = byteCode + web3Instance.abi.encodeParameters(['string','string'], [keyString, valueString]).replace("0x", "");
-      const txData = {
-        type: 'FEE_DELEGATED_SMART_CONTRACT_DEPLOY',
-        from: address,
-        to: '0xb7d342c2e4640ff1ffdac515e5d22e10dd727938',
-        gas: '300000',
-        value: caver.utils.toPeb("0.0001", 'KLAY')
-      }
-
-      const { rawTransaction } = await web3Instance.klay.signTransaction(txData)
-      setDeployerOutput(rawTransaction);
-      var result = fetch('http://localhost:3000/api/delegate-fee', {
-        method: 'POST',
-        body: JSON.stringify(transactionData),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }).then(res => res.json())
-      .then(json => console.log(json));
-      
-      toast({
-        title: 'Status',
-        description: "Deployer Signed successfully",
-      })
-    } else {
-        toast({
-          title: 'Error',
-          description: "Please connect to valid Wallet",
-        });
-    }
-  }
-
-  const signFeePayer = () => {
-    if(!deployerOutput) {
-      toast({
-        title: 'Error',
-        description: "Deployer Signature invalid",
-      });
-      return;
-    }
-    let provider;
-    if(web3Instance.klay) {
-      provider = "kaikas";
-    } else {
-      toast({
-        title: 'Error',
-        description: "Not a valid provider",
-      });
-      return;
-    }
-
-    toast({
-      title: 'Status',
-      description: "FeeDelegation inititated",
-    })
-
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ deployTx: deployerOutput })
-    };
-    
-    fetch(API_BASEURL+'/feedelegation/', requestOptions)
-      .then(response => response.json())
-      .then(data => {
-        if(data.success) {
-          toast({
-            title: 'Status',
-            description: "FeeDelegation successful",
-            status: 'success',
-            duration: 3000,
-            isClosable: true,
-          })
-          setDeployedContract(data.contractAddress);
-        } else {
-          toast({
-            title: 'Status',
-            description: "Problem in feedelegation : "+data.message,
-            status: 'error',
-            duration: 3000,
-            isClosable: true,
-          })
-          setDeployedContract('');
-        }
-      }).catch(err => {
-        toast({
-          title: 'Status',
-          description: "Problem in feedelegation : "+err.message,
-          status: 'error',
-          duration: 3000,
-          isClosable: true,
-        })
-        setDeployedContract('');
-      });
-  }
   
  return (
   <main
@@ -288,7 +182,7 @@ export default function WithKlaytnWeb3Modal() {
     <div className="flex flex-col max-w-5xl w-full gap-8">
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">Try Fee Delegation with Kaikas and Klaytn Web3Modal</h1>
       <div className="mt-10 flex flex-col gap-4">
-        <h2 className="mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">Connect with Metamask with the button below</h2>
+        <h2 className="mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">Connect with Kaikas with the button below</h2>
         {
           connectButtonLabel != "Connect" ?
           <Button className="w-fit" onClick={disconnect}>Disconnect</Button> :
