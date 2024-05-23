@@ -122,8 +122,8 @@ sendFeeDelegateTx();`
           <h2 className={h2}>Implementations</h2>
           <div className='flex flex-col gap-4 mt-6'>
             <Link href="/with-caverjs" target="_blank" rel="noopener noreferrer" className="font-medium text-primary underline underline-offset-4">Caverjs</Link>
-            <Link href="/with-klaytn-web3modal" target="_blank" rel="noopener noreferrer" className="font-medium text-primary underline underline-offset-4">Web3Modal</Link>
             <Link href="/with-klaytn-web3modal" target="_blank" rel="noopener noreferrer" className="font-medium text-primary underline underline-offset-4">Klaytn Web3Modal</Link>
+            <Link href="/with-web3modal" target="_blank" rel="noopener noreferrer" className="font-medium text-primary underline underline-offset-4">Web3Modal</Link>
           </div>
         </div>
       </main>
